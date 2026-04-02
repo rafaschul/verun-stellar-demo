@@ -1099,6 +1099,16 @@ function ts() {
 }
 
 // ─── TERMINAL LOG ─────────────────────────────────────────────────────────────
+function logStepSeparator() {
+  const log = document.getElementById('terminal-log');
+  if (!log || log.children.length === 0) return;
+  const sep = document.createElement('div');
+  sep.style.cssText = 'display:flex;align-items:center;gap:6px;margin:5px 0;opacity:0.35';
+  sep.innerHTML = '<span style="flex:1;height:1px;background:#1e3a52"></span><span style="font-size:9px;color:#3b6090;letter-spacing:.1em;white-space:nowrap">STEP '+(state.currentStep+1)+'</span><span style="flex:1;height:1px;background:#1e3a52"></span>';
+  log.appendChild(sep);
+  log.scrollTop = log.scrollHeight;
+}
+
 function clearTerminal() {
   logTimeouts.forEach(clearTimeout);
   settlementTimers.forEach(clearTimeout);
@@ -1182,12 +1192,14 @@ function nextStep() {
     return;
   }
   state.currentStep++;
+  logStepSeparator();
   renderStep();
 }
 
 function prevStep() {
   if (state.currentStep > 0) {
     state.currentStep--;
+    logStepSeparator();
     renderStep();
   }
 }
@@ -1215,7 +1227,6 @@ function setAgent(type) {
 
 // ─── STEP RENDERERS ───────────────────────────────────────────────────────────
 function renderStep() {
-  clearTerminal();
   renderDots();
   renderNav();
 
