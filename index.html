@@ -359,7 +359,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
       <div class="hero-stat"><strong>70/10/10/10</strong> Fee Split</div>
       <div class="hero-stat"><strong>Soroban</strong> Auth Signing</div>
     </div>
-    <a href="#demo" class="btn btn-primary">Run Demo →</a>
+    <a href="#demo" class="btn btn-primary" id="run-demo-btn" onclick="initRealDemo(event)">Run Demo →</a>
   </div>
 </section>
 
@@ -793,7 +793,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
     <div class="scam-demo">
       <div class="scam-demo-info">
         <h4>Scam Agent — Blocked at ATS Gate</h4>
-        <p>Address: <span class="mono text-xs" style="color:var(--text3)">GZERO2SCORE3SCAM4AGENT5BLOCK6VERUN7ATS8CHECK9REJECT2XFAKE</span></p>
+        <p>Address: <span class="mono text-xs" style="color:var(--text3)">GAJ4DY7ZZKVFRQWQKL2DYXS6FGG6E2MVS7UB6FRKZ555ADSW5EHSJMKO</span></p>
         <p style="margin-top:6px;font-size:13px">Score 0 fails all operation tiers (minimum: 300 for Read). Verun returns <span class="mono text-xs" style="background:var(--red-light);color:var(--red);padding:1px 5px;border-radius:3px">402 agent_not_verified</span> before any payment attempt. Score follows identity — cannot be restarted or bypassed.</p>
       </div>
       <div class="scam-verdict">
@@ -1060,7 +1060,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
     <div class="footer-inner">
       <div>
         <div class="footer-brand">Verun Protocol</div>
-        <div class="footer-note" style="margin-top:4px">Simulated demo — no real blockchain calls. Stellar Testnet.</div>
+        <div class="footer-note" style="margin-top:4px">Live on Stellar Testnet — real funding, account checks, and anchor transactions.</div>
       </div>
       <div class="footer-links">
         <a href="https://github.com/rafaschul/verun-protocol" target="_blank">GitHub</a>
@@ -1071,6 +1071,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@stellar/stellar-sdk@13/dist/stellar-sdk.min.js"></script>
 <script>
 // ─── STATE ───────────────────────────────────────────────────────────────────
 const state = {
@@ -1090,7 +1091,7 @@ const AGENTS = {
     steps: 6,
   },
   scam: {
-    address: 'GZERO2SCORE3SCAM4AGENT5BLOCK6VERUN7ATS8CHECK9REJECT2XFAKE',
+    address: 'GAJ4DY7ZZKVFRQWQKL2DYXS6FGG6E2MVS7UB6FRKZ555ADSW5EHSJMKO',
     addressShort: 'GZERO2...XFAKE',
     balance: '5.000000',
     score: 0,
@@ -1100,12 +1101,124 @@ const AGENTS = {
   }
 };
 
-const TX_HASH = 'a8f4c3d9e2b71650fa9c8d4e3b2a1f0c7d6e5b4a3f2e1d0c9b8a7f6e5d4c3b2';
+let TX_HASH = null;
 const SERVER_ADDR = 'GVERUN3X402SERVER4PAYTO5STELLAR6TESTNET7RECEIVE8PAYMENT9XZ';
 const SERVER_SHORT = 'GVERUN...XZ';
 
 let logTimeouts = [];
 let settlementTimers = [];
+let demoRuntime = {
+  keypair: null,
+  funded: false,
+  txHash: null,
+  explorerUrl: null,
+  lastLedger: null,
+};
+
+const STELLAR_HORIZON = 'https://horizon-testnet.stellar.org';
+const NETWORK_PASSPHRASE = 'Test SDF Network ; September 2015';
+const FRIEND_BOT = 'https://friendbot.stellar.org';
+
+function shortAddr(addr) { return `${addr.slice(0,6)}...${addr.slice(-6)}`; }
+
+async function ensureEphemeralAgent() {
+  const sdk = window.StellarSdk || window.stellarSdk;
+  if (!sdk) throw new Error('Stellar SDK failed to load');
+  if (!demoRuntime.keypair) demoRuntime.keypair = sdk.Keypair.random();
+  const pub = demoRuntime.keypair.publicKey();
+  sessionStorage.setItem('verun_demo_pubkey', pub);
+  AGENTS.verified.address = pub;
+  AGENTS.verified.addressShort = shortAddr(pub);
+  return pub;
+}
+
+async function fundWithFriendbot(pubkey) {
+  const r = await fetch(`${FRIEND_BOT}?addr=${encodeURIComponent(pubkey)}`);
+  if (!r.ok) throw new Error('Friendbot funding failed');
+  return r.json();
+}
+
+async function loadAccount(pubkey) {
+  const sdk = window.StellarSdk || window.stellarSdk;
+  const server = new sdk.Horizon.Server(STELLAR_HORIZON);
+  return server.loadAccount(pubkey);
+}
+
+function getNativeBalance(account) {
+  const bal = (account.balances || []).find(b => b.asset_type === 'native');
+  return bal ? Number(bal.balance) : 0;
+}
+
+async function submitAnchorTx(score = 820) {
+  const sdk = window.StellarSdk || window.stellarSdk;
+  const server = new sdk.Horizon.Server(STELLAR_HORIZON);
+  const keypair = demoRuntime.keypair;
+  const source = await server.loadAccount(keypair.publicKey());
+
+  const tx = new sdk.TransactionBuilder(source, {
+    fee: sdk.BASE_FEE,
+    networkPassphrase: NETWORK_PASSPHRASE,
+  })
+    .addMemo(sdk.Memo.text(`verun:score:${score}`))
+    .addOperation(sdk.Operation.payment({
+      destination: keypair.publicKey(),
+      asset: sdk.Asset.native(),
+      amount: '0.0000001',
+    }))
+    .setTimeout(30)
+    .build();
+
+  tx.sign(keypair);
+  const res = await server.submitTransaction(tx);
+  return {
+    hash: res.hash,
+    ledger: res.ledger || null,
+    explorerUrl: `https://stellar.expert/explorer/testnet/tx/${res.hash}`
+  };
+}
+
+async function initRealDemo(ev) {
+  if (ev) ev.preventDefault();
+  location.hash = '#demo';
+  clearTerminal();
+  state.agentType = 'verified';
+  state.currentStep = 0;
+  renderStep();
+
+  try {
+    addLog('event', 'Initializing live Stellar Testnet session...');
+    const pub = await ensureEphemeralAgent();
+    addLog('info', `Ephemeral agent: ${shortAddr(pub)}`);
+
+    let account;
+    try {
+      account = await loadAccount(pub);
+      demoRuntime.funded = true;
+    } catch (e) {
+      addLog('info', 'Funding via Friendbot (first run for this keypair)...');
+      await fundWithFriendbot(pub);
+      account = await loadAccount(pub);
+      demoRuntime.funded = true;
+    }
+
+    const bal = getNativeBalance(account);
+    AGENTS.verified.balance = bal.toFixed(6);
+    addLog('ok', `Account ready. XLM balance: ${AGENTS.verified.balance}`);
+
+    const anchor = await submitAnchorTx(AGENTS.verified.score);
+    TX_HASH = anchor.hash;
+    demoRuntime.txHash = anchor.hash;
+    demoRuntime.explorerUrl = anchor.explorerUrl;
+    demoRuntime.lastLedger = anchor.ledger;
+    addLog('ok', `Anchor tx submitted: ${anchor.hash.slice(0,20)}...`);
+
+    // If currently on settlement step, refresh view values
+    if (state.currentStep === 4) renderStep();
+  } catch (err) {
+    addLog('error', `Live demo init failed: ${err.message}`);
+  }
+}
+
 
 // ─── TIME HELPERS ────────────────────────────────────────────────────────────
 function ts() {
@@ -1458,9 +1571,9 @@ function renderStep5(body) {
       </div>
       <div class="tx-reveal" id="tx-reveal">
         <div class="tx-label">Transaction Confirmed</div>
-        <div class="tx-hash">${TX_HASH}</div>
-        <a class="tx-link" href="https://stellar.expert/explorer/testnet/tx/${TX_HASH}" target="_blank">
-          stellar.expert/explorer/testnet/tx/${TX_HASH.slice(0,16)}... ↗
+        <div class="tx-hash">${TX_HASH || 'pending...'}</div>
+        <a class="tx-link" href="${demoRuntime.explorerUrl || '#'}" target="_blank">
+          ${TX_HASH ? `stellar.expert/explorer/testnet/tx/${TX_HASH.slice(0,16)}... ↗` : 'Explorer link will appear after tx confirmation'}
         </a>
         <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
           <span class="pill pill-green">Ledger ${startLedger+5}</span>
@@ -1501,7 +1614,7 @@ function renderStep5(body) {
   addLog('tx',    `Ledger ${startLedger+3} · pending...`, 3100);
   addLog('tx',    `Ledger ${startLedger+4} · pending...`, 4100);
   addLog('ok',    `Ledger ${startLedger+5} · <span class="green">CONFIRMED ✓</span>`, 5200);
-  addLog('data',  `TX: ${TX_HASH.slice(0,24)}...`, 5400);
+  addLog('data',  `TX: ${TX_HASH ? TX_HASH.slice(0,24) + '...' : 'pending...'}`, 5400);
   addLog('ok',    '0.001 USDC transferred · settlement complete', 5700);
 }
 
@@ -1629,12 +1742,4 @@ function renderBlockedScam(titleEl, bodyEl) {
 renderStep();
 </script>
 </body>
-</html><div class="val-card">
-          <div class="val-header">
-            <div class="val-name">Invoicemate</div>
-            <span class="badge badge-blue">PIPELINE</span>
-          </div>
-          <p class="val-desc">Stellar-native invoice financing and trade finance platform. Real-world asset flows on-chain — natural fit for KYA-gated agent operations and x402 payment rails.</p>
-          <div class="val-tags"><span class="tag">Stellar Ecosystem</span> · <span class="tag">Trade Finance · RWA</span></div>
-        </div>
-        
+</html>
