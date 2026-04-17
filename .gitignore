@@ -1,0 +1,5 @@
+
+# Rust/Soroban build artifacts
+contracts/**/target/
+contracts/wasm/*.wasm
+.stellar/
