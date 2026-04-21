@@ -1128,7 +1128,7 @@ const FACILITATOR_LAST_PROBE = {
 function shortAddr(addr) { return `${addr.slice(0,6)}...${addr.slice(-6)}`; }
 
 async function ensureEphemeralAgent() {
-  const sdk = window.StellarSdk || window.stellarSdk;
+ const sdk = window.StellarSdk || window.stellarSdk;
   if (!sdk) throw new Error('Stellar SDK failed to load');
   if (!demoRuntime.keypair) demoRuntime.keypair = sdk.Keypair.random();
   const pub = demoRuntime.keypair.publicKey();
@@ -1145,7 +1145,7 @@ async function fundWithFriendbot(pubkey) {
 }
 
 async function loadAccount(pubkey) {
-  const sdk = window.StellarSdk || window.stellarSdk;
+ const sdk = window.StellarSdk || window.stellarSdk;
   const server = new sdk.Horizon.Server(STELLAR_HORIZON);
   return server.loadAccount(pubkey);
 }
@@ -1173,7 +1173,7 @@ async function probeFacilitator() {
 }
 
 async function submitAnchorTx(score = 820) {
-  const sdk = window.StellarSdk || window.stellarSdk;
+ const sdk = window.StellarSdk || window.stellarSdk;
   const server = new sdk.Horizon.Server(STELLAR_HORIZON);
   const keypair = demoRuntime.keypair;
   const source = await server.loadAccount(keypair.publicKey());
