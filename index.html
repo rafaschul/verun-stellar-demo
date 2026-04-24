@@ -318,6 +318,13 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
 .mono{font-family:var(--mono)}
 .text-sm{font-size:13px}
 .text-xs{font-size:11px}
+
+/* Mobile: break long monospace strings (Stellar addresses, tx hashes) */
+@media(max-width:600px){
+  .mono, code, .contract-addr{word-break:break-all;overflow-wrap:anywhere}
+  .scam-demo{flex-direction:column;gap:16px}
+  .scam-demo-info{min-width:0}
+}
 </style>
 </head>
 <body>
@@ -577,7 +584,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
     <div class="scam-demo">
       <div class="scam-demo-info">
         <h4>Scam Agent — Blocked at ATS Gate</h4>
-        <p>Address: <span class="mono text-xs" style="color:var(--text3)">GAJ4DY7ZZKVFRQWQKL2DYXS6FGG6E2MVS7UB6FRKZ555ADSW5EHSJMKO</span></p>
+        <p>Address: <span class="mono text-xs" style="color:var(--text3);word-break:break-all;overflow-wrap:anywhere">GAJ4DY7ZZKVFRQWQKL2DYXS6FGG6E2MVS7UB6FRKZ555ADSW5EHSJMKO</span></p>
         <p style="margin-top:6px;font-size:13px">Score 0 fails all operation tiers (minimum: 300 for Read). Verun returns <span class="mono text-xs" style="background:var(--red-light);color:var(--red);padding:1px 5px;border-radius:3px">402 agent_not_verified</span> before any payment attempt. Score follows identity — cannot be restarted or bypassed.</p>
       </div>
       <div class="scam-verdict">
