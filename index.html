@@ -775,85 +775,6 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
   </div>
 </section>
 
-<!-- CONTRACTS -->
-<section class="section" id="contracts" style="background:var(--card);border-top:1px solid var(--border)">
-  <div class="container">
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px">
-      <p class="section-label" style="margin-bottom:0">On-Chain</p>
-      <span class="badge badge-blue">Stellar Testnet</span>
-      <a href="https://github.com/rafaschul/verun-stellar-demo/tree/main/contracts/verun_core" target="_blank" style="font-size:12px;color:var(--text3)">GitHub: rafaschul/verun-stellar-demo/contracts/verun_core ↗</a>
-    </div>
-
-    <h2>Soroban Contracts</h2>
-    <p style="max-width:760px;margin-bottom:16px">6 contracts deployed on 19 April 2026 from verun_core scaffold. Distinct business logic for priority contracts is in progress. x402Validator, PaymentSettler, MockUSDC remain scaffold (distinct logic targeted Q3 2026).</p>
-
-    <div style="margin-bottom:22px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text2)">
-      <strong style="color:var(--amber)">Transparency note:</strong> All 6 links below are real testnet deployments. Priority contracts are marked <span class="pill pill-amber" style="margin-left:4px">priority logic in progress</span>.
-    </div>
-
-    <h3 style="margin-bottom:12px">PRIORITY · distinct logic</h3>
-    <div class="contracts-grid" style="margin-bottom:22px">
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">AgentRegistry</div>
-          <span class="pill pill-purple">Core</span>
-        </div>
-        <div class="contract-addr">CAAO2XERZGH4Q37TMMWQNVV27QOUPYLMCAPOGPBOEFLEVA34ILSNQ2Y6</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CAAO2XERZGH4Q37TMMWQNVV27QOUPYLMCAPOGPBOEFLEVA34ILSNQ2Y6" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">VerunRegistry</div>
-          <span class="pill pill-green">Logic</span>
-        </div>
-        <div class="contract-addr">CBEX7XI4FRN3BZLWMNLJRKBDM7P6ORB2A2ICTTAAGGP5G7TZXA6MT7Q4</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CBEX7XI4FRN3BZLWMNLJRKBDM7P6ORB2A2ICTTAAGGP5G7TZXA6MT7Q4" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">VerunScanner</div>
-          <span class="pill pill-green">Logic</span>
-        </div>
-        <div class="contract-addr">CBTWLIE6QP4VGSOZCZXEUJITLB4W4WPD57H2UHZFNA7QJUTBYFOGWVPP</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CBTWLIE6QP4VGSOZCZXEUJITLB4W4WPD57H2UHZFNA7QJUTBYFOGWVPP" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-    </div>
-
-    <h3 style="margin-bottom:12px">SCAFFOLD · shared WASM</h3>
-    <div class="contracts-grid">
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">x402Validator</div>
-          <span class="pill pill-amber">Logic</span>
-        </div>
-        <div class="contract-addr">CCDFIIO6AX4Y72GPXFWH5P2TAKHOE4ESMQEQWZURNLXOCEBWLFVSBCHK</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CCDFIIO6AX4Y72GPXFWH5P2TAKHOE4ESMQEQWZURNLXOCEBWLFVSBCHK" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">PaymentSettler</div>
-          <span class="pill pill-amber">Finance</span>
-        </div>
-        <div class="contract-addr">CBU7GHHJNSKN2FTFGGGUL6HS23HM6L4U7F3ECRYANLXHESABHV33WQJV</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CBU7GHHJNSKN2FTFGGGUL6HS23HM6L4U7F3ECRYANLXHESABHV33WQJV" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">MockUSDC (SEP-41)</div>
-          <span class="pill pill-blue">Token</span>
-        </div>
-        <div class="contract-addr">CB6LA2GZ4Q4J4QFE4AMP5GVMMHAE2F2G3FDDUZWFGBGM2DVFTFGRTJZB</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CB6LA2GZ4Q4J4QFE4AMP5GVMMHAE2F2G3FDDUZWFGBGM2DVFTFGRTJZB" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-    </div>
-
-    <div style="margin-top:24px;padding:16px 20px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text3)">
-      <strong style="color:var(--text2)">npm:</strong> <code class="mono" style="color:var(--purple)">@x402/stellar</code> &nbsp;·&nbsp;
-      <strong style="color:var(--text2)">Facilitator:</strong> <code class="mono" style="color:var(--blue)">https://channels.openzeppelin.com/x402/testnet</code> &nbsp;·&nbsp;
-      <strong style="color:var(--text2)">Network:</strong> <code class="mono" style="color:var(--green)">stellar:testnet</code>
-    </div>
-  </div>
-</section>
 <!-- FOOTER -->
 <footer>
   <div class="container">
@@ -861,11 +782,12 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
       <div>
         <div class="footer-brand">Verun Protocol</div>
         <div class="footer-note" style="margin-top:4px">Live on Stellar Testnet — real funding, account checks, and anchor transactions.</div>
+        <div class="footer-note" style="margin-top:10px">© 2026 <a href="https://bcpp.io" target="_blank" style="color:var(--text2);text-decoration:underline;text-underline-offset:2px">BCP Partners GmbH</a> · Berlin · All rights reserved.</div>
       </div>
       <div class="footer-links">
-        <a href="https://github.com/rafaschul/verun-protocol" target="_blank">GitHub</a>
+        <a href="https://github.com/rafaschul/verun-stellar-demo" target="_blank">GitHub</a>
         <a href="https://stellar.expert/explorer/testnet" target="_blank">Stellar Explorer</a>
-        <a href="https://developers.stellar.org/docs/build/apps/x402" target="_blank">x402 Docs</a>
+        <a href="https://bcpp.io" target="_blank">bcpp.io</a>
       </div>
     </div>
   </div>
