@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-BASE_URL="https://stellar.expert/explorer/testnet/contract"
+BASE_URL="https://api.stellar.expert/explorer/testnet/contract"
 
 CONTRACTS=(
   "VerunRegistry:CBEX7XI4FRN3BZLWMNLJRKBDM7P6ORB2A2ICTTAAGGP5G7TZXA6MT7Q4"

@@ -1,0 +1,18 @@
+name: verify-stellar-addresses
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  verify-links:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Stellar testnet contract links
+        run: |
+          chmod +x ./contracts/verify-testnet-links.sh
+          ./contracts/verify-testnet-links.sh
