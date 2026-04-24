@@ -918,12 +918,9 @@ let demoRuntime = {
 const STELLAR_HORIZON = 'https://horizon-testnet.stellar.org';
 const NETWORK_PASSPHRASE = 'Test SDF Network ; September 2015';
 const FRIEND_BOT = 'https://friendbot.stellar.org';
-const FACILITATOR_URL = 'https://channels.openzeppelin.com/x402/testnet';
-const FACILITATOR_LAST_PROBE = {
-  status: 401,
-  checkedAt: '2026-04-17T07:57:44Z',
-  txHash: '9d81ab20e5abaeb85cbf2d182ec7bb12c4b927778e46f9cb09de165c7565532e'
-};
+// x402 facilitator — endpoint pending. Public URL removed until the
+// partner endpoint is live and stable.
+const FACILITATOR_LABEL = 'x402 facilitator (pending)';
 
 function shortAddr(addr) { return `${addr.slice(0,6)}...${addr.slice(-6)}`; }
 
@@ -964,12 +961,8 @@ function utcTime(iso) {
 }
 
 async function probeFacilitator() {
-  try {
-    const r = await fetch(FACILITATOR_URL, { method: 'GET' });
-    return { ok: r.status === 200 || r.status === 401, status: r.status, live: true };
-  } catch (err) {
-    return { ok: false, status: null, live: false, error: err?.message || 'Network error' };
-  }
+  // Facilitator endpoint is pending — no public probe target.
+  return { ok: false, status: null, live: false, error: 'endpoint pending' };
 }
 
 async function submitAnchorTx(score = 820) {
@@ -1278,7 +1271,7 @@ function renderStep2(body) {
   <span class="key">"price"</span>: <span class="str">"$0.001"</span>,
   <span class="key">"network"</span>: <span class="str">"stellar:testnet"</span>,
   <span class="key">"payTo"</span>: <span class="str">"GVERUN...X402SERVER"</span>,
-  <span class="key">"facilitator"</span>: <span class="str">"${FACILITATOR_URL}"</span>,
+  <span class="key">"facilitator"</span>: <span class="str">"pending · x402 on Stellar"</span>,
   <span class="key">"asset"</span>: <span class="str">"USDC:GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA"</span>
 <span class="key">}</span></div>
     </div>`;
@@ -1293,7 +1286,7 @@ function renderStep2(body) {
   addLog('info',  'Parsing X-PAYMENT-REQUIRED header', 900);
   addLog('data',  'price: $0.001 USDC', 1150);
   addLog('data',  'network: stellar:testnet', 1350);
-  addLog('data',  `facilitator: ${FACILITATOR_URL.replace('https://', '')}`, 1550);
+  addLog('data',  `facilitator: ${FACILITATOR_LABEL}`, 1550);
   addLog('ok',    'Payment requirements parsed — building auth entry', 1850);
 }
 
@@ -1343,7 +1336,7 @@ function renderStep4(body) {
     <div class="anim-in">
       <div style="font-size:12px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px">Facilitator Verification</div>
       <div id="fac-status" style="margin-bottom:12px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;font-size:12px;color:var(--text2)">
-        Live facilitator preflight: checking ${FACILITATOR_URL}...
+        Facilitator endpoint pending — verification will run when live.
       </div>
       <ul class="check-list" id="check-list">
         <li id="ck1">Verify Soroban auth entry structure</li>
@@ -1373,7 +1366,7 @@ function renderStep4(body) {
   setTimeout(() => { const el = document.getElementById('submit-reveal'); if(el) el.style.opacity='1'; }, 2600);
 
   addLog('event', 'Forwarding to OpenZeppelin facilitator', 80);
-  addLog('info',  `POST ${FACILITATOR_URL}`, 250);
+  addLog('info',  `POST ${FACILITATOR_LABEL}`, 250);
   addLog('ok',    '[1/4] Auth entry structure valid ✓', 700);
   addLog('ok',    '[2/4] ATS score on-chain: 820 ≥ 300 ✓', 1200);
   addLog('ok',    '[3/4] Soroban simulation: success ✓', 1800);
@@ -1391,8 +1384,8 @@ function renderStep4(body) {
       return;
     }
 
-    statusEl.innerHTML = `ℹ️ Live preflight unavailable from browser. Last verified: HTTP ${FACILITATOR_LAST_PROBE.status} at ${utcTime(FACILITATOR_LAST_PROBE.checkedAt)} · tx ${FACILITATOR_LAST_PROBE.txHash.slice(0,16)}...`;
-    addLog('info', `Live preflight unavailable; fallback to last verified probe HTTP ${FACILITATOR_LAST_PROBE.status}`, 380);
+    statusEl.innerHTML = `ℹ️ Facilitator endpoint pending — production URL will be wired up when the partner endpoint is live.`;
+    addLog('info', `Facilitator endpoint pending — skipping live preflight.`, 380);
   })();
 }
 
