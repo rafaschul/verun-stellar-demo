@@ -336,7 +336,6 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
     <a href="#diagram">Diagram</a>
     <a href="#validators">Validators</a>
     <a href="#tokensuite">TokenSuite</a>
-    <a href="#contracts">Contracts</a>
   </div>
   <div class="nav-right">
     <div class="stellar-badge">
@@ -809,47 +808,63 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
   <div class="container">
     <p class="section-label">Validator Roadmap</p>
     <h2>Validator Network</h2>
-    <p style="max-width:560px;margin-bottom:0">Three independent validators reach 2-of-3 consensus on every ATS score. Institutions bring domain expertise — finance, compliance, tokenization.</p>
+    <p style="max-width:560px;margin-bottom:0">Three independent validators reach 2-of-3 consensus on every KYA score. Institutions bring domain expertise — finance, compliance, tokenization.</p>
     <div class="validators-grid">
       <div class="validator-card">
         <div class="val-header">
           <div class="val-name">TokenForge</div>
           <span class="badge badge-green">PILOT</span>
         </div>
-        <div class="val-sub">TokenSuite platform · KYC/AML infrastructure + regulated token issuance. Founding validator and primary ATS data source.</div>
+        <div class="val-sub">TokenSuite platform · KYC/AML infrastructure + regulated token issuance. Founding validator and primary KYA data source.</div>
         <div class="val-meta">TokenForge TokenSuite · <a href="#tokensuite">Integration ↓</a></div>
       </div>
       <div class="validator-card">
         <div class="val-header">
-          <div class="val-name">BCP Partners GmbH</div>
+          <div class="val-name">BCP Partners</div>
           <span class="badge badge-green">PILOT</span>
         </div>
         <div class="val-sub">Founding validator. Structured finance and regulated investment operations. Drives protocol design and first live deployments.</div>
-        <div class="val-meta">BCP Partners GmbH · Founding Validator</div>
+        <div class="val-meta">BCP Partners · Founding Validator</div>
       </div>
       <div class="validator-card">
         <div class="val-header">
           <div class="val-name">Nyala</div>
-          <span class="badge badge-blue">PIPELINE</span>
+          <span class="badge badge-green">PILOT</span>
         </div>
-        <div class="val-sub">BaFin-regulated digital assets platform. RWA tokenization, regulated token issuance, and compliant asset management for institutional clients.</div>
-        <div class="val-meta">BaFin · Digital Assets · RWA</div>
-      </div>
-      <div class="validator-card">
-        <div class="val-header">
-          <div class="val-name">Bitbond</div>
-          <span class="badge badge-blue">PIPELINE</span>
-        </div>
-        <div class="val-sub">Security &amp; utility token launchpad (not a bank). Token issuance expertise and issuer network. BaFin-regulated tokenization infrastructure for capital markets.</div>
-        <div class="val-meta">Security &amp; Utility Token Launchpad</div>
+        <div class="val-sub">Digital asset infrastructure and custody. Brings institutional-grade asset servicing to the validator network.</div>
+        <div class="val-meta">Nyala · Digital Assets</div>
       </div>
       <div class="validator-card">
         <div class="val-header">
           <div class="val-name">Concedus</div>
-          <span class="badge badge-blue">PIPELINE</span>
+          <span class="badge badge-green">PILOT</span>
         </div>
-        <div class="val-sub">Regulated crypto custody and compliance infrastructure. Bridges TradFi and DLT for institutional-grade digital asset operations on Stellar.</div>
-        <div class="val-meta">Crypto Custody · Institutional DLT</div>
+        <div class="val-sub">Compliance and legal technology provider. Regulatory expertise across European financial markets.</div>
+        <div class="val-meta">Concedus · RegTech</div>
+      </div>
+      <div class="validator-card">
+        <div class="val-header">
+          <div class="val-name">Cashlink</div>
+          <span class="badge badge-outline">POTENTIAL</span>
+        </div>
+        <div class="val-sub">BaFin eWpG Registrar. Electronic securities issuance and registration authority under German electronic securities law.</div>
+        <div class="val-meta">BaFin eWpG · Electronic Securities</div>
+      </div>
+      <div class="validator-card">
+        <div class="val-header">
+          <div class="val-name">Bitbond</div>
+          <span class="badge badge-outline">POTENTIAL</span>
+        </div>
+        <div class="val-sub">Security token and utility token launchpad. Brings token issuance expertise and issuer network to validator consensus.</div>
+        <div class="val-meta">Security &amp; Utility Token Launchpad</div>
+      </div>
+      <div class="validator-card">
+        <div class="val-header">
+          <div class="val-name">Stellar Development Foundation</div>
+          <span class="badge badge-amber">STRATEGIC</span>
+        </div>
+        <div class="val-sub">Stellar ecosystem infrastructure and governance. Strategic validator providing network-level alignment and protocol endorsement.</div>
+        <div class="val-meta">SDF · Stellar Ecosystem</div>
       </div>
       <div class="validator-card open-slot">
         <div class="val-header">
@@ -864,7 +879,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
     </div>
 
     <div class="fee-split-section" style="margin-top:32px">
-      <div class="fee-split-title">Fee Distribution — Per ATS Evaluation</div>
+      <div class="fee-split-title">Fee Distribution — Per KYA Evaluation</div>
       <div class="fee-bar">
         <div class="fee-seg treasury">70%</div>
         <div class="fee-seg validator">10%</div>
@@ -968,91 +983,7 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
   </div>
 </section>
 
-<!-- CONTRACTS -->
-<section class="section" id="contracts" style="background:var(--card);border-top:1px solid var(--border)">
-  <div class="container">
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px">
-      <p class="section-label" style="margin-bottom:0">On-Chain</p>
-      <span class="badge badge-blue">Stellar Testnet</span>
-      <a href="https://github.com/rafaschul/verun-protocol" target="_blank" style="font-size:12px;color:var(--text3)">GitHub: rafaschul/verun-protocol ↗</a>
-    </div>
-
-          <div style="margin-top:32px;border-top:1px solid var(--border);padding-top:28px">
-            <p class="section-label" style="margin-bottom:8px">TokenForge Integration</p>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:16px">
-              <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px">
-                <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.06em;margin-bottom:6px">KYC / AML</div>
-                <div style="font-size:13px;color:var(--text)">TokenSuite API feeds verified identity data directly into Verun's AgentRegistry as KYA input.</div>
-              </div>
-              <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px">
-                <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.06em;margin-bottom:6px">Token Issuance</div>
-                <div style="font-size:13px;color:var(--text)">White-label STO via ERSTER platform. SEP-41 tokens issued on Stellar Soroban through TokenSuite Chain API.</div>
-              </div>
-              <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px">
-                <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.06em;margin-bottom:6px">Audit Trail</div>
-                <div style="font-size:13px;color:var(--text)">Every KYA evaluation and token operation logged on-chain via Verun AuditLog contract — portable compliance record.</div>
-              </div>
-            </div>
-          </div>
-    <h2>Soroban Contracts</h2>
-    <p style="max-width:560px;margin-bottom:0">All protocol contracts deployed on Stellar Testnet. View on stellar.expert explorer.</p>
-    <div class="contracts-grid">
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">AgentRegistry</div>
-          <span class="pill pill-purple">Core</span>
-        </div>
-        <div class="contract-addr">CBEX7XI4FRN3BZLWMNLJRKBDM7P6ORB2A2ICTTAAGGP5G7TZXA6MT7Q4</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CBEX7XI4FRN3BZLWMNLJRKBDM7P6ORB2A2ICTTAAGGP5G7TZXA6MT7Q4" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">ValidatorRegistry</div>
-          <span class="pill pill-purple">Core</span>
-        </div>
-        <div class="contract-addr">CBTWLIE6QP4VGSOZCZXEUJITLB4W4WPD57H2UHZFNA7QJUTBYFOGWVPP</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CBTWLIE6QP4VGSOZCZXEUJITLB4W4WPD57H2UHZFNA7QJUTBYFOGWVPP" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">EvaluationEngine</div>
-          <span class="pill pill-green">Logic</span>
-        </div>
-        <div class="contract-addr">CCDFIIO6AX4Y72GPXFWH5P2TAKHOE4ESMQEQWZURNLXOCEBWLFVSBCHK</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CCDFIIO6AX4Y72GPXFWH5P2TAKHOE4ESMQEQWZURNLXOCEBWLFVSBCHK" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">AuditLog</div>
-          <span class="pill pill-green">Logic</span>
-        </div>
-        <div class="contract-addr">CBU7GHHJNSKN2FTFGGGUL6HS23HM6L4U7F3ECRYANLXHESABHV33WQJV</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CBU7GHHJNSKN2FTFGGGUL6HS23HM6L4U7F3ECRYANLXHESABHV33WQJV" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">FeeVault</div>
-          <span class="pill pill-amber">Finance</span>
-        </div>
-        <div class="contract-addr">CAAO2XERZGH4Q37TMMWQNVV27QOUPYLMCAPOGPBOEFLEVA34ILSNQ2Y6</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CAAO2XERZGH4Q37TMMWQNVV27QOUPYLMCAPOGPBOEFLEVA34ILSNQ2Y6" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-      <div class="contract-row">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div class="contract-name">MockUSDC (SEP-41)</div>
-          <span class="pill pill-blue">Token</span>
-        </div>
-        <div class="contract-addr">CB6LA2GZ4Q4J4QFE4AMP5GVMMHAE2F2G3FDDUZWFGBGM2DVFTFGRTJZB</div>
-        <a class="contract-link" href="https://stellar.expert/explorer/testnet/contract/CB6LA2GZ4Q4J4QFE4AMP5GVMMHAE2F2G3FDDUZWFGBGM2DVFTFGRTJZB" target="_blank">stellar.expert/explorer/testnet ↗</a>
-      </div>
-    </div>
-    <div style="margin-top:24px;padding:16px 20px;background:var(--bg);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text3)">
-      <strong style="color:var(--text2)">npm:</strong> <code class="mono" style="color:var(--purple)">@x402/stellar</code> &nbsp;·&nbsp;
-      <strong style="color:var(--text2)">Facilitator:</strong> <code class="mono" style="color:var(--blue)">https://channels.openzeppelin.com/x402/testnet</code> &nbsp;·&nbsp;
-      <strong style="color:var(--text2)">Network:</strong> <code class="mono" style="color:var(--green)">stellar:testnet</code>
-    </div>
-  </div>
-</section>
+<!-- CONTRACTS SECTION REMOVED - pending repo-attribution and distinct-logic review -->
 
 <!-- FOOTER -->
 <footer>
