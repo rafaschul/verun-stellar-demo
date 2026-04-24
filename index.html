@@ -232,6 +232,35 @@ p{color:var(--text2);line-height:1.7}
 .diagram-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .diagram-scroll svg{display:block;min-width:950px}
 
+/* ─── MOBILE SEQUENCE VIEW ─── */
+.diagram-mobile{display:none;flex-direction:column;gap:8px;margin-top:16px}
+.mseq-step{background:#F8F9FE;border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.mseq-step.note{background:rgba(123,97,255,0.04);border-style:dashed}
+.mseq-step.err{background:rgba(232,64,64,0.05);border-color:rgba(232,64,64,0.28)}
+.mseq-step.ok{background:rgba(0,180,138,0.06);border-color:rgba(0,180,138,0.3)}
+.mseq-head{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.mseq-num{background:var(--purple);color:#fff;font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.04em}
+.mseq-step.err .mseq-num{background:var(--red)}
+.mseq-step.ok .mseq-num{background:var(--green)}
+.mseq-step.note .mseq-num{background:var(--text3)}
+.mseq-tag{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;color:#fff;letter-spacing:.04em}
+.mseq-tag.p{background:#7B61FF}
+.mseq-tag.g{background:#00B48A}
+.mseq-tag.a{background:#F5A623}
+.mseq-tag.b{background:#0052FF}
+.mseq-tag.gr{background:#9CA3AF}
+.mseq-arrow{color:var(--text2);font-weight:700;font-size:13px}
+.mseq-msg{font-family:var(--mono);font-size:12px;color:var(--text);line-height:1.5;word-break:break-word}
+.mseq-step.note .mseq-msg{color:var(--text2);font-style:italic}
+.mseq-step.err .mseq-msg{color:#B91C1C}
+.mseq-step.dash .mseq-msg::before{content:"⤎ ";color:var(--text3);font-weight:700}
+.mseq-divider{text-align:center;font-family:var(--mono);font-size:11px;font-weight:700;color:#B91C1C;letter-spacing:.12em;padding:14px 0 10px;margin-top:10px;border-top:1px dashed rgba(232,64,64,0.3);text-transform:uppercase}
+.mseq-hint{text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:8px;letter-spacing:.04em}
+@media(max-width:768px){
+  .diagram-scroll{display:none}
+  .diagram-mobile{display:flex}
+}
+
 /* SYBIL */
 .sybil-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
 .sybil-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
@@ -757,6 +786,37 @@ footer{background:var(--card);border-top:1px solid var(--border);padding:40px 0;
 
         <rect x="24" y="738" width="902" height="12" rx="0" fill="var(--bg)"/>
       </svg>
+    </div>
+
+    <!-- Mobile-optimised sequence view -->
+    <div class="diagram-mobile">
+      <div class="mseq-step"><div class="mseq-head"><span class="mseq-num">01</span><span class="mseq-tag p">AI Agent</span><span class="mseq-arrow">→</span><span class="mseq-tag g">Verun</span></div><div class="mseq-msg">GET /api/token-data</div></div>
+      <div class="mseq-step dash"><div class="mseq-head"><span class="mseq-num">02</span><span class="mseq-tag g">Verun</span><span class="mseq-arrow">→</span><span class="mseq-tag p">AI Agent</span></div><div class="mseq-msg">402 + paymentRequirements</div></div>
+      <div class="mseq-step note"><div class="mseq-head"><span class="mseq-num">·</span><span class="mseq-tag p">AI Agent</span><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">note</span></div><div class="mseq-msg">construct InvokeHostFunctionOp + sign Soroban auth entry</div></div>
+      <div class="mseq-step"><div class="mseq-head"><span class="mseq-num">03</span><span class="mseq-tag p">AI Agent</span><span class="mseq-arrow">→</span><span class="mseq-tag g">Verun</span></div><div class="mseq-msg">PAYMENT-SIGNATURE header</div></div>
+      <div class="mseq-step note"><div class="mseq-head"><span class="mseq-num">·</span><span class="mseq-tag g">Verun</span><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">note</span></div><div class="mseq-msg">ATS score check via AgentRegistry</div></div>
+      <div class="mseq-step"><div class="mseq-head"><span class="mseq-num">04</span><span class="mseq-tag g">Verun</span><span class="mseq-arrow">→</span><span class="mseq-tag a">OpenZeppelin</span></div><div class="mseq-msg">forward to facilitator</div></div>
+      <div class="mseq-step dash"><div class="mseq-head"><span class="mseq-num">05</span><span class="mseq-tag a">OpenZeppelin</span><span class="mseq-arrow">→</span><span class="mseq-tag b">Stellar</span></div><div class="mseq-msg">read ATS score on-chain</div></div>
+      <div class="mseq-step dash"><div class="mseq-head"><span class="mseq-num">06</span><span class="mseq-tag b">Stellar</span><span class="mseq-arrow">→</span><span class="mseq-tag a">OpenZeppelin</span></div><div class="mseq-msg">[score: 820 — valid]</div></div>
+      <div class="mseq-step"><div class="mseq-head"><span class="mseq-num">07</span><span class="mseq-tag a">OpenZeppelin</span><span class="mseq-arrow">→</span><span class="mseq-tag b">Stellar</span></div><div class="mseq-msg">simulate transaction</div></div>
+      <div class="mseq-step dash"><div class="mseq-head"><span class="mseq-num">08</span><span class="mseq-tag b">Stellar</span><span class="mseq-arrow">→</span><span class="mseq-tag a">OpenZeppelin</span></div><div class="mseq-msg">[simulation success]</div></div>
+      <div class="mseq-step note"><div class="mseq-head"><span class="mseq-num">·</span><span class="mseq-tag a">OpenZeppelin</span><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">note</span></div><div class="mseq-msg">payment verified ✓</div></div>
+      <div class="mseq-step"><div class="mseq-head"><span class="mseq-num">09</span><span class="mseq-tag a">OpenZeppelin</span><span class="mseq-arrow">→</span><span class="mseq-tag b">Stellar</span></div><div class="mseq-msg">fee bump + submit tx</div></div>
+      <div class="mseq-step note"><div class="mseq-head"><span class="mseq-num">·</span><span class="mseq-tag b">Stellar</span><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">note</span></div><div class="mseq-msg">ledger confirmed ~5s</div></div>
+      <div class="mseq-step dash"><div class="mseq-head"><span class="mseq-num">10</span><span class="mseq-tag b">Stellar</span><span class="mseq-arrow">→</span><span class="mseq-tag a">OpenZeppelin</span></div><div class="mseq-msg">transaction result</div></div>
+      <div class="mseq-step dash"><div class="mseq-head"><span class="mseq-num">11</span><span class="mseq-tag a">OpenZeppelin</span><span class="mseq-arrow">→</span><span class="mseq-tag g">Verun</span></div><div class="mseq-msg">settlement confirmed</div></div>
+      <div class="mseq-step ok"><div class="mseq-head"><span class="mseq-num">12</span><span class="mseq-tag g">Verun</span><span class="mseq-arrow">→</span><span class="mseq-tag p">AI Agent</span></div><div class="mseq-msg">200 OK + resource ✓</div></div>
+      <div class="mseq-step dash"><div class="mseq-head"><span class="mseq-num">13</span><span class="mseq-tag g">Verun</span><span class="mseq-arrow">→</span><span class="mseq-tag gr">Stellar</span></div><div class="mseq-msg">write lead referral</div></div>
+      <div class="mseq-step dash"><div class="mseq-head"><span class="mseq-num">14</span><span class="mseq-tag gr">Stellar</span><span class="mseq-arrow">→</span><span class="mseq-tag g">Verun</span></div><div class="mseq-msg">[referral confirmed]</div></div>
+
+      <div class="mseq-divider">Error Paths · 402 responses</div>
+
+      <div class="mseq-step err"><div class="mseq-head"><span class="mseq-num">E1</span><span class="mseq-tag g">Verun</span><span class="mseq-arrow">→</span><span class="mseq-tag p">AI Agent</span></div><div class="mseq-msg">score too low → 402 agent_not_verified</div></div>
+      <div class="mseq-step err"><div class="mseq-head"><span class="mseq-num">E2</span><span class="mseq-tag a">OpenZeppelin</span><span class="mseq-arrow">→</span><span class="mseq-tag p">AI Agent</span></div><div class="mseq-msg">auth expired (max_ledger) → 402 auth_expired</div></div>
+      <div class="mseq-step err"><div class="mseq-head"><span class="mseq-num">E3</span><span class="mseq-tag a">OpenZeppelin</span><span class="mseq-arrow">→</span><span class="mseq-tag p">AI Agent</span></div><div class="mseq-msg">insufficient balance → 402 insufficient_funds</div></div>
+      <div class="mseq-step err"><div class="mseq-head"><span class="mseq-num">E4</span><span class="mseq-tag b">Stellar</span><span class="mseq-arrow">→</span><span class="mseq-tag p">AI Agent</span></div><div class="mseq-msg">simulation fail → 402 invalid_payment</div></div>
+
+      <div class="mseq-hint">View full diagram on desktop for visual sequence layout.</div>
     </div>
   </div>
 </section>
